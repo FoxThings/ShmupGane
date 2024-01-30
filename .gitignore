@@ -23,6 +23,9 @@
 .vs/
 .idea/
 
+# Roslyn cache directories
+.ide/
+
 # Gradle cache directory
 .gradle/
 
