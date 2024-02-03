@@ -3,18 +3,16 @@ using UnityEngine.UI;
 
 public abstract class Device
 {
-    public delegate void updateConsumption();
-
     public ModuleKind kind { get; protected set; }
 
     public Image presentation;
     
-    protected updateConsumption updateHandler;
+    protected Module module;
 
     public abstract float CalculateConsumption(float input);
 
-    public void setConsumptionUpdater(updateConsumption handler)
+    public void SetModule(Module module)
     {
-        this.updateHandler = handler;
+        this.module = module;
     }
 }

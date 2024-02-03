@@ -38,8 +38,8 @@ namespace Assets.Scripts.NewPlayerSystem
             };
 
             shipModel = new ShipModel();
-            var result = shipModel.AddDevice(5, new BlasterW());
-            result &= shipModel.AddDevice(4, new KineticEnergyD());
+            var result = shipModel.AddDevice(5, new ShotGunW());
+            result &= shipModel.AddDevice(4, new LocatorD());
 
             if (!result)
             {

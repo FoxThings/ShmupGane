@@ -8,12 +8,17 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D body;
     private Damaging dmg;
 
+    public void Launch(float force, Vector2 dir)
+    {
+        body.AddForce(dir.normalized * force, ForceMode2D.Force);
+    }
+
     public void Launch(float force, Vector2 dir, float damage)
     {
         dmg.Damage = damage;
         body.AddForce(dir.normalized * force, ForceMode2D.Force);
     }
-
+    
     private void DamageHandler()
     {
         Destroy(gameObject);

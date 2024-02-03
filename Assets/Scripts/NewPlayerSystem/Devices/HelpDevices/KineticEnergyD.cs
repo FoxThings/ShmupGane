@@ -47,7 +47,7 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.HelpDevices
 
 						if(lastActive != isActive)
 						{
-							updateHandler.Invoke();
+							module.UpdateModel();
 						}
 					})
 					.SetLoops(-1);

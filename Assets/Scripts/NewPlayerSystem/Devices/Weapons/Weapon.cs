@@ -8,6 +8,8 @@ public abstract class Weapon : Device
     
     private Sequence activeSequence;
 
+    public GameObject bulletObj = Resources.Load("StandardBullet") as GameObject;
+
     public Weapon()
     {
         kind = ModuleKind.Weapon;

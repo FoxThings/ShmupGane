@@ -22,6 +22,6 @@ public class SpreadW : BlasterW
             base.Shoot(startPoint, angles[i] * direction, force);
         }
         GameObject bullet = WeaponManager.s.CreateBullet(Resources.Load("StrongBullet") as GameObject, startPoint);
-        bullet.GetComponent<Bullet>()?.Launch(force, direction, 0.25f);
+        bullet.GetComponent<Bullet>()?.Launch(force, direction);
     }
 }

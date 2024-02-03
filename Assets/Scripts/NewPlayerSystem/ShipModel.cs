@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class ShipModel
 {
@@ -12,23 +13,23 @@ public class ShipModel
         model = new Dictionary<Module, List<Module>>();
 
         // Layer 0
-        core = new Module(ModuleKind.Core) {
+        core = new Module(ModuleKind.Core, this) {
             output = 2f,
         };
 
         // Layer 1
-        Module s1 = new Module(ModuleKind.Shield);
-        Module s2 = new Module(ModuleKind.Shield);
-        Module d1 = new Module(ModuleKind.Device);
-        Module d2 = new Module(ModuleKind.Device);
-        Module d3 = new Module(ModuleKind.Device);
+        Module s1 = new Module(ModuleKind.Shield, this);
+        Module s2 = new Module(ModuleKind.Shield, this);
+        Module d1 = new Module(ModuleKind.Device, this);
+        Module d2 = new Module(ModuleKind.Device, this);
+        Module d3 = new Module(ModuleKind.Device, this);
 
         model[core] = new List<Module>() { s1, d1, d2, d3, s2 };
 
         // Layer 2
-        Module w1 = new Module(ModuleKind.Weapon);
-        Module w2 = new Module(ModuleKind.Weapon);
-        Module w3 = new Module(ModuleKind.Weapon);
+        Module w1 = new Module(ModuleKind.Weapon, this);
+        Module w2 = new Module(ModuleKind.Weapon, this);
+        Module w3 = new Module(ModuleKind.Weapon, this);
 
         model[d1] = new List<Module>() { w1 };
         model[d2] = new List<Module>() { w2 };
@@ -45,7 +46,7 @@ public class ShipModel
         {
             if (modulesDescriptor[v].TryAttachDevice(device))
             {
-                device.setConsumptionUpdater(ModelRefresh);
+                device.SetModule(modulesDescriptor[v]);
                 ModelRefresh();
                 return true;
             }
@@ -54,7 +55,7 @@ public class ShipModel
         return false;
     }
 
-    private void ModelRefresh()
+    public void ModelRefresh()
     {
         Queue<Module> queue = new Queue<Module>();
         queue.Enqueue(core);
@@ -76,10 +77,15 @@ public class ShipModel
             }
         }
     }
+    public List<Module> GetNeighbourModules(Module module)
+    {
+        return model[module];
+    }
 }
 
 public class Module
 {
+    private readonly ShipModel model;
     public ModuleKind kind { get; private set; }
 
     public Device attachedDevice;
@@ -88,12 +94,13 @@ public class Module
     public float input { get; set; } = 0;
     public float output { get; set; } = 0;
 
-    public Module(ModuleKind kind, float basicOutput = 0)
+    public Module(ModuleKind kind, ShipModel model, float basicOutput = 0)
     {
+        this.model = model;
         this.kind = kind;
         this.output = basicOutput;
     }
-
+    
     public bool TryAttachDevice(Device device)
     {
         if (attachedDevice == null && device.kind == this.kind)
@@ -114,5 +121,18 @@ public class Module
         }
 
         output = input - attachedDevice.CalculateConsumption(input);
+    }
+
+    public void UpdateModel()
+    {
+        model.ModelRefresh();
+    }
+
+    public List<Device> GetNeighbourDevices()
+    {
+        return model.GetNeighbourModules(this)
+            .Where((module) => module.attachedDevice != null)
+            .Select((module) => module.attachedDevice)
+            .ToList();
     }
 }
