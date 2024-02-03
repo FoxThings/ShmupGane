@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.NewPlayerSystem.Devices.HelpDevices;
 using DG.Tweening;
 using Interactions;
 using UnityEngine;
@@ -38,6 +39,7 @@ namespace Assets.Scripts.NewPlayerSystem
 
             shipModel = new ShipModel();
             var result = shipModel.AddDevice(5, new BlasterW());
+            result &= shipModel.AddDevice(4, new KineticEnergyD());
 
             if (!result)
             {

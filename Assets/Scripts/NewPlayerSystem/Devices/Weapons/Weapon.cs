@@ -4,11 +4,9 @@ using Weapons;
 
 public abstract class Weapon : Device
 {
-    public float energy = 0;
-
-    public int chargesToFire = 1;
-
-    public Sequence activeSequence;
+    private float energy = 0;
+    
+    private Sequence activeSequence;
 
     public Weapon()
     {
@@ -19,26 +17,32 @@ public abstract class Weapon : Device
     {
         if (input == energy)
         {
-            return 0;
+            return input;
         }
 
         energy = input;
         RestartWeapon();
 
 
-        return 0;
+        return input;
+    }
+
+    protected virtual float getChargesToFire()
+    {
+        return 1f;
     }
 
     protected abstract void Shoot(Vector2 startPoint, Vector2 direction, float force);
 
     private void RestartWeapon()
     {
+        activeSequence.Pause();
         activeSequence.Kill();
 
         activeSequence = DOTween.Sequence();
         activeSequence
-            .AppendCallback(() => Shoot(GameObject.FindGameObjectWithTag("Player").transform.position, Vector2.up, 1000))
-            .AppendInterval(energy / chargesToFire)
+            .AppendCallback(() => Shoot(GameObject.FindGameObjectWithTag("Player").transform.position, Vector2.up, 600))
+            .AppendInterval(getChargesToFire() / energy)
             .SetLoops(-1);
     }
 }

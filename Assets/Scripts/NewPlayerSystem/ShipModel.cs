@@ -1,22 +1,20 @@
-
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ShipModel
 {
-    private Dictionary<Module, List<Module>> model;
-    private Module core;
+    private readonly Dictionary<Module, List<Module>> model;
+    private readonly Module core;
 
-    private List<Module> modulesDescriptor;
+    private readonly List<Module> modulesDescriptor;
 
     public ShipModel()
     {
         model = new Dictionary<Module, List<Module>>();
 
         // Layer 0
-        core = new Module(ModuleKind.Core);
-        core.output = 1;
+        core = new Module(ModuleKind.Core) {
+            output = 2f,
+        };
 
         // Layer 1
         Module s1 = new Module(ModuleKind.Shield);
@@ -47,6 +45,7 @@ public class ShipModel
         {
             if (modulesDescriptor[v].TryAttachDevice(device))
             {
+                device.setConsumptionUpdater(ModelRefresh);
                 ModelRefresh();
                 return true;
             }
@@ -114,6 +113,6 @@ public class Module
             return;
         }
 
-        output = attachedDevice.CalculateConsumption(input);
+        output = input - attachedDevice.CalculateConsumption(input);
     }
 }
