@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public HotText WaveInfo;
     public float WaveDelay = 3f;
     public List<WaveInfo> Waves;
+    public NewDevicePanel deviceSelect;
 
     private int currentWave;
 
@@ -29,9 +30,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-
-
+    
     private void DoWave(int index)
     {
         enemiesCount = Waves[index].EnemiesCount;
@@ -59,7 +58,7 @@ public class GameManager : MonoBehaviour
         var sequence = DOTween.Sequence();
         sequence.AppendCallback(() => WaveInfo.ShowText("Wave " + (currentWave + 1), WaveDelay));
         sequence.AppendInterval(WaveDelay);
-        sequence.AppendCallback(() => DoWave(currentWave));
+        sequence.AppendCallback(() => deviceSelect.ActivateWeaponChangeProcess(() => DoWave(currentWave)));
     }
 
     private void Start()

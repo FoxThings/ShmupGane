@@ -6,7 +6,7 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.Shields
 {
 	public class Shield : Device
 	{
-		private readonly SpriteRenderer view;
+		private SpriteRenderer view;
 		private readonly float maxEnergy = 60;
 		private float currentEnergy = 0;
 		
@@ -15,10 +15,14 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.Shields
 
 		private bool isBroken = false;
 
-		public Shield(GameObject obj)
+		public Shield()
 		{
-			this.view = obj.GetComponent<SpriteRenderer>();
 			kind = ModuleKind.Shield;
+		}
+
+		public void SetView(GameObject obj)
+		{
+			view = obj.GetComponent<SpriteRenderer>();
 		}
 		
 		public override float CalculateConsumption(float input)
@@ -82,8 +86,9 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.Shields
 			{
 				isBroken = false;
 				view.enabled = true;
-				ChangeViewOpacity();
 			}
+			
+			ChangeViewOpacity();
 		}
 
 		private void ChangeViewOpacity()

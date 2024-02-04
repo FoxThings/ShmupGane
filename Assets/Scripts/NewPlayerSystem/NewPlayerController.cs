@@ -47,9 +47,9 @@ namespace Assets.Scripts.NewPlayerSystem
             };
 
             shipModel = new ShipModel();
-            var result = shipModel.AddDevice(5, new SpreadW());
-            result &= shipModel.AddDevice(4, new LocatorD());
-            result &= shipModel.AddDevice(1, new Shield(Shield1));
+            var result = AddDevice(5, new SpreadW());
+            result &= AddDevice(4, new LocatorD());
+            result &= AddDevice(1, new Shield());
 
             if (!result)
             {
@@ -57,6 +57,16 @@ namespace Assets.Scripts.NewPlayerSystem
             }
         }
 
+        public bool AddDevice(int slot, Device device)
+        {
+            if(device is Shield shield)
+            {
+                shield.SetView(slot == 1 ? Shield1 : Shield2);
+            }
+
+            return shipModel.AddDevice(slot, device);
+        }
+        
         private void Update()
         {
             axes = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
