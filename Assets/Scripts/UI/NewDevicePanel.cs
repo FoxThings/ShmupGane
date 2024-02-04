@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Assets.Scripts.NewPlayerSystem;
 using Assets.Scripts.NewPlayerSystem.Devices;
@@ -21,7 +22,8 @@ namespace UI
 		public Sprite ShieldS;
 
 		public List<Button> buttons;
-		
+		public List<Text> energy;
+
 		public NewPlayerController player;
 		
 		private Action activeCallback = null;
@@ -33,6 +35,7 @@ namespace UI
 			Time.timeScale = 0;
 
 			UpdateButtons();
+			UpdateEnergy();
 			ProcessNewDevice(GenerateNewDevice(isStart));
 			panel.SetActive(true);
 		}
@@ -101,6 +104,15 @@ namespace UI
 
 					b.interactable = false;
 				}
+			}
+		}
+
+		private void UpdateEnergy()
+		{
+			var target = player.GetModel().GetEnergyCounts();
+			for(int i = 0; i < target.Count; ++i)
+			{
+				energy[i].text = target[i].ToString(CultureInfo.InvariantCulture) + "e/s";
 			}
 		}
 	}

@@ -96,6 +96,32 @@ public class ShipModel
     {
         return modulesDescriptor;
     }
+
+    public List<float> GetEnergyCounts()
+    {
+        List<float> answer = new List<float>();
+
+        Queue<Module> queue = new Queue<Module>();
+        queue.Enqueue(core);
+
+        while (queue.Count > 0)
+        {
+            Module module = queue.Dequeue();
+            if (!model.ContainsKey(module))
+            {
+                continue;
+            }
+
+            var modules = model[module];
+            foreach (var m in modules)
+            {
+                answer.Add(module.output);
+                queue.Enqueue(m);
+            }
+        }
+
+        return answer;
+    }
 }
 
 public class Module
