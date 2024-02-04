@@ -47,8 +47,7 @@ namespace Assets.Scripts.NewPlayerSystem
             };
 
             shipModel = new ShipModel();
-            var result = AddDevice(5, new SpreadW());
-            result &= AddDevice(4, new LocatorD());
+            var result = AddDevice(5, new BlasterW());
             result &= AddDevice(1, new Shield());
 
             if (!result)

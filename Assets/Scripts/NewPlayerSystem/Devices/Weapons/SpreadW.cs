@@ -4,6 +4,11 @@ using Weapons;
 
 public class SpreadW : BlasterW
 {
+    public SpreadW()
+    {
+        description = "Фазер\nТратит 1 энергии на заряд, по 3 выстрела в раные стороны за заряд";
+    }
+    
     private readonly List<Quaternion> angles = new List<Quaternion>() { 
         Quaternion.Euler(0, 0, 0f),
         Quaternion.Euler(0, 0, -10f),

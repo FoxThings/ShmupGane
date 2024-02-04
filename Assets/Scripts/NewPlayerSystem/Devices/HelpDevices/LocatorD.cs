@@ -11,6 +11,7 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.HelpDevices
 		public LocatorD()
 		{
 			kind = ModuleKind.Device;
+			description = "Локатор\nСледующее оружие в цепи получает эффект автоматичекой наводки на врагов";
 		}
 		
 		public override float CalculateConsumption(float input)

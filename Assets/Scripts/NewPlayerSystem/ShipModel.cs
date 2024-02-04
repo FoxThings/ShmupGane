@@ -91,6 +91,11 @@ public class ShipModel
             .OfType<Shield>()
             .ToList();
     }
+
+    public List<Module> GetAllModules()
+    {
+        return modulesDescriptor;
+    }
 }
 
 public class Module
@@ -144,5 +149,10 @@ public class Module
             .Where((module) => module.attachedDevice != null)
             .Select((module) => module.attachedDevice)
             .ToList();
+    }
+
+    public bool IsAttached()
+    {
+        return attachedDevice != null;
     }
 }

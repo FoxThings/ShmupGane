@@ -3,6 +3,11 @@ using Weapons;
 
 public class ShotGunW : BlasterW
 {
+    public ShotGunW()
+    {
+        description = "Дробовичок\nТратит 8 энергии на выстрел, огромное количество пуль в разные стороны";
+    }
+    
     protected override float getChargesToFire()
     {
         return 8f;

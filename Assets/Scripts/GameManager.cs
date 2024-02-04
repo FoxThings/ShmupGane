@@ -58,7 +58,16 @@ public class GameManager : MonoBehaviour
         var sequence = DOTween.Sequence();
         sequence.AppendCallback(() => WaveInfo.ShowText("Wave " + (currentWave + 1), WaveDelay));
         sequence.AppendInterval(WaveDelay);
-        sequence.AppendCallback(() => deviceSelect.ActivateWeaponChangeProcess(() => DoWave(currentWave)));
+        sequence.AppendCallback(() =>
+        {
+            if(currentWave == 0)
+            {
+                DoWave(currentWave);
+                return;
+            }
+
+            deviceSelect.ActivateWeaponChangeProcess(() => DoWave(currentWave), currentWave <= 2);
+        });
     }
 
     private void Start()

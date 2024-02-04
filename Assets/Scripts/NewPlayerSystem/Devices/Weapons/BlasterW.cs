@@ -3,6 +3,11 @@ using Weapons;
 
 public class BlasterW : Weapon
 {
+    public BlasterW()
+    {
+        description = "Пулемет\nТратит 0.5 энергии на пулю, превосходная точность";
+    }
+    
     protected override float getChargesToFire()
     {
         return 0.5f;

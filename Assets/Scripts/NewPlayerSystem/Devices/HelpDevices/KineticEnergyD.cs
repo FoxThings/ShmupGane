@@ -11,6 +11,7 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.HelpDevices
 		public KineticEnergyD()
 		{
 			kind = ModuleKind.Device;
+			description = "Преобразователь кинетической энергии\nВырабатывает дополнительную энергию при движении корабля";
 		}
 		
 		public override float CalculateConsumption(float input)

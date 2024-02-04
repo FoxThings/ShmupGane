@@ -18,6 +18,7 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.Shields
 		public Shield()
 		{
 			kind = ModuleKind.Shield;
+			description = "Плазменный щит\nЗащищает от ударов. При попадии, тратится часть энергии, затем восстанавливается. Если вся энергия щита иссякнет, потребуется полная зарядка щита.";
 		}
 
 		public void SetView(GameObject obj)
@@ -48,7 +49,7 @@ namespace Assets.Scripts.NewPlayerSystem.Devices.Shields
 				return false;
 			}
 
-			currentEnergy -= 30f;
+			currentEnergy -= 40f;
 			if(currentEnergy <= 0)
 			{
 				isBroken = true;
