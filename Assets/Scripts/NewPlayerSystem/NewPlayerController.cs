@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.NewPlayerSystem.Devices.HelpDevices;
+using Assets.Scripts.NewPlayerSystem.Devices.Shields;
 using DG.Tweening;
 using Interactions;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace Assets.Scripts.NewPlayerSystem
 {
     public class NewPlayerController : MonoBehaviour
     {
+        public GameObject Shield1;
+        public GameObject Shield2;
+        
         public float maxVelocity;
         public float timeToMaxVelocity;
         public float timeToZeroVelocity;
@@ -25,6 +29,11 @@ namespace Assets.Scripts.NewPlayerSystem
 
         private ShipModel shipModel;
 
+        public ShipModel GetModel()
+        {
+            return shipModel;
+        }
+        
         private void Start()
         {
             body = GetComponent<Rigidbody2D>();
@@ -38,8 +47,9 @@ namespace Assets.Scripts.NewPlayerSystem
             };
 
             shipModel = new ShipModel();
-            var result = shipModel.AddDevice(5, new ShotGunW());
+            var result = shipModel.AddDevice(5, new SpreadW());
             result &= shipModel.AddDevice(4, new LocatorD());
+            result &= shipModel.AddDevice(1, new Shield(Shield1));
 
             if (!result)
             {

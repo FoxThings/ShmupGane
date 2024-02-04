@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.NewPlayerSystem.Devices.Shields;
 
 public class ShipModel
 {
@@ -80,6 +81,15 @@ public class ShipModel
     public List<Module> GetNeighbourModules(Module module)
     {
         return model[module];
+    }
+
+    public List<Shield> GetShields()
+    {
+        return modulesDescriptor
+            .Where(module => module.kind == ModuleKind.Shield)
+            .Select(module => module.attachedDevice)
+            .OfType<Shield>()
+            .ToList();
     }
 }
 

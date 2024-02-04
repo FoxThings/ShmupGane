@@ -30,7 +30,7 @@ namespace Interactions
             set => material.SetFloat(FlashAmount, value);
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             health = MaxHealth;
             material = GetComponent<SpriteRenderer>().material;
@@ -54,11 +54,12 @@ namespace Interactions
                 .SetLink(gameObject, LinkBehaviour.KillOnDestroy);
         }
 
-        private void ChangeHealth(float damage)
+        protected virtual void ChangeHealth(float damage)
         {
             health -= damage;
             health = Mathf.Clamp(health, 0, MaxHealth);
             OnChangeHealth?.Invoke(health);
+            
         }
 
         public void DoDamage(float damage)

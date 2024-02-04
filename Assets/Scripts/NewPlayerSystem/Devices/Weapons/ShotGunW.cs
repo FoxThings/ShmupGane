@@ -5,12 +5,11 @@ public class ShotGunW : BlasterW
 {
     protected override float getChargesToFire()
     {
-        return 6f;
+        return 8f;
     }
     
     protected override void Shoot(Vector2 startPoint, Vector2 direction, float force)
     {
-
         for (int i = 0; i < 20; ++i)
         {
             var angle = Quaternion.Euler(0, 0, Random.Range(-30f, 30f));
